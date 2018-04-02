@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="jdbc-h2" basedir="." default="run" xmlns:unless="ant:unless">
+  <property file="build.properties"/>
+  <sequential unless:set="src.dir">
+    <property name="src.dir" value="src"/>
+    <property name="src" location="src"/>
+    <property name="build" location="bin"/>
+    <property name="driver" location="lib/h2-1.4.197.jar"/>
+    <property name="main" value="com.dreamli.h2.ConnectionTest"/>
+
+    <propertyfile file="build.properties">
+      <entry key="src.dir" value="${src.dir}"/>
+      <entry key="src" value="${src}"/>
+      <entry key="build" value="${build}"/>
+      <entry key="driver" value="${driver}"/>
+      <entry key="main" value="${main}"/>
+    </propertyfile>
+  </sequential>
+
+   <target name="compile" description="compile the source " >
+       <javac srcdir="${src}" destdir="${build}"/>
+   </target>
+
+  <target name="run" description="run the application" depends="compile">
+      <java classname="${main}" classpath="${build}">
+         <classpath>
+              <pathelement location="${driver}"/>
+         </classpath>
+      </java>
+  </target>
+</project>
